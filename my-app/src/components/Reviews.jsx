@@ -18,12 +18,12 @@ const Reviews = () => {
   if (dataOfReviews.length !== 0) {
     return (
       <div>
-        <ul>
+        <ul className="reviews">
           {dataOfReviews.map((review) => {
             return (
               <li key={review.id}>
-                <p>Author: {review.author}</p>
-                <p>{review.content}</p>
+                <p className="reviewsAuthor">Author: {review.author}</p>
+                <p className="reviewsContent">{review.content}</p>
               </li>
             );
           })}

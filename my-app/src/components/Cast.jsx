@@ -16,18 +16,23 @@ const Cast = () => {
   }, [moviesId]);
   return (
     <div>
-      <ul>
+      <ul className="actor">
         {cast.map((actor) => {
           return (
             <li key={actor.id}>
               <img
+                className="actorImg"
                 src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
                 alt={actor.name}
                 width="200px"
                 height="300px"
+                onError={(e) => {
+                  e.target.src =
+                    "https://pbs.twimg.com/media/EjJmZG1XgAAyzZu.jpg";
+                }}
               />
-              <p>{actor.name}</p>
-              <p>Character: {actor.character}</p>
+              <p className="actorName">{actor.name}</p>
+              <p className="actorCharacter"> Character: {actor.character}</p>
             </li>
           );
         })}

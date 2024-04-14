@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import axios from "axios";
+import "../App.css";
 
 const MoviesPage = () => {
   const [valueInput, setValueInput] = useState("");
@@ -26,9 +27,12 @@ const MoviesPage = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="main">
+      <form onSubmit={handleSubmit} className="form">
         <input
+          placeholder="Find film"
+          autoComplete="off"
+          className="input"
           type="text"
           name="input"
           onChange={(e) => {
@@ -36,12 +40,14 @@ const MoviesPage = () => {
           }}
           value={valueInput}
         />
-        <button type="submit">Search</button>
+        <button type="submit" className="btn">
+          Search
+        </button>
       </form>
-      <ul>
+      <ul className="ulContent">
         {findMovie.map((movie) => {
           return (
-            <li key={movie.id}>
+            <li key={movie.id} className="liObj">
               <Link to={`${movie.id}`} state={{ form: location }}>
                 {movie.title}
               </Link>

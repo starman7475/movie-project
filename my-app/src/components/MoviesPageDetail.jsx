@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import { Link, Outlet, useParams, useLocation } from "react-router-dom";
 
 const MoviesPageDetail = () => {
@@ -19,30 +19,32 @@ const MoviesPageDetail = () => {
   }, [moviesId]);
 
   return (
-    <div>
-      <button type="button">
-        <Link to={backLink.current}>Go Back</Link>
+    <div className="menuOfMovie">
+      <button type="button" className="btnBack">
+        <Link to={backLink.current} className="btnBack">
+          Go Back
+        </Link>
       </button>
-      <div>
+      <div className="information">
         <img
           src={`https://image.tmdb.org/t/p/w500${dataOfMovie.poster_path}`}
           alt={dataOfMovie.title}
-          width="200px"
-          height="300px"
+          width="250px"
+          height="350px"
         />
-        <ul>
-          <li>
-            <h2>
+        <ul className="detailOfMovie">
+          <li className="detailOfMovieLi">
+            <h2 className="Overview">
               {dataOfMovie.title} ({dataOfMovie.release_date})
             </h2>
             <p>Stars: {Math.round(dataOfMovie.vote_average)}</p>
           </li>
-          <li>
-            <h2>Overview:</h2>
-            <p>{dataOfMovie.overview}</p>
+          <li className="detailOfMovieLi">
+            <h2 class="Overview">Overview:</h2>
+            <p className="textOverview">{dataOfMovie.overview}</p>
           </li>
           <li>
-            <h2>Genres:</h2>
+            <h2 className="Overview">Genres:</h2>
             <p>
               {dataOfMovie.genres &&
                 dataOfMovie.genres.map((genre) => genre.name).join(", ")}
@@ -50,9 +52,9 @@ const MoviesPageDetail = () => {
           </li>
         </ul>
       </div>
-      <div>
+      <div className="CastAndReview">
         <h2>Additional information</h2>
-        <ul>
+        <ul className="choiceCastAndReview">
           <li>
             <Link to="cast">Cast</Link>
           </li>
@@ -60,7 +62,9 @@ const MoviesPageDetail = () => {
             <Link to="reviews">Reviews</Link>
           </li>
         </ul>
-        <Outlet></Outlet>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Outlet />
+        </Suspense>
       </div>
     </div>
   );
